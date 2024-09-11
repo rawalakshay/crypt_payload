@@ -1,6 +1,6 @@
 {
   "name": "crypt-payload",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "encrypts and decrypts payloads based on secret keys",
   "main": "index.js",
   "scripts": {
