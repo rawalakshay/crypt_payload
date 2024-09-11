@@ -4,14 +4,14 @@ const algorithm = "aes-256-cbc";
 module.exports = {
 
     encrypt: (secretKey, ivKey, data) => {
-        if (secretKey.length < 32) {
-            throw new Error("secretKey must be atleast 32 characters long");
+        if (secretKey.length < 32 || secretKey.length > 64) {
+            throw new Error("secretKey must be atleast 32 characters long and maximum 64 characters long");
         }
-        if (ivKey.length < 32) {
-            throw new Error("ivKey must be atleast 32 characters long");
+        if (ivKey.length < 32 || ivKey.length > 64) {
+            throw new Error("ivKey must be atleast 32 characters long and maximum 64 characters long");
         }
         if (typeof data !== 'string') {
-            throw new Error("data must be a string");
+            throw new Error("data to be encrypted must be a string");
         }
         ivKey = getSHA(ivKey);
         ivKey = ivKey.substring(0, 16);
@@ -21,14 +21,14 @@ module.exports = {
     },
 
     decrypt: (secretKey, ivKey, encryptedData) => {
-        if (secretKey.length < 32) {
-            throw new Error("secretKey must be atleast 32 characters long");
+        if (secretKey.length < 32 || secretKey.length > 64) {
+            throw new Error("secretKey must be atleast 32 characters long and maximum 64 characters long");
         }
-        if (ivKey.length < 32) {
-            throw new Error("ivKey must be atleast 32 characters long");
+        if (ivKey.length < 32 || ivKey.length > 64) {
+            throw new Error("ivKey must be atleast 32 characters long and maximum 64 characters long");
         }
         if (typeof encryptedData !== 'string') {
-            throw new Error("data must be a string");
+            throw new Error("data to be decrypted must be a string");
         }
         ivKey = getSHA(ivKey);
         ivKey = ivKey.substring(0, 16);
@@ -58,7 +58,7 @@ function encryptData(key, iv, data) {
         encryptedData += cipher.final('base64');
         return encryptedData;
     } catch (err) {
-        console.error("encryptData fn :: ", err);
+        // console.error("encryptData fn :: ", err);
         throw err;
     }
 }
@@ -82,7 +82,7 @@ function decryptData(key, iv, encryptedData) {
         decryptedData += decipher.final('utf8');
         return decryptedData;
     } catch (err) {
-        console.error("decryptData fn :: ", err);
+        // console.error("decryptData fn :: ", err);
         throw err;
     }
 }
