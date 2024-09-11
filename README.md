@@ -21,7 +21,8 @@ Encrypt data using the primary secret key and secondary IV key.:
 ```js
 const crypt = require('crypt-payload');
 let data = { id: 1, name: 'Sample', age: 20 };
-let encryptedData = crypt.encrypt('32_length_secretKey', '32_length_ivKey', JSON.stringify(data));
+let encryptedData = crypt.encrypt('32_length_secretKey', 'ivKey', JSON.stringify(data));
+//length of secretKey and ivKey should be minimum of 32.
 ```
 
 ## Decrypt Data
