@@ -1,38 +1,33 @@
-# Simple API Response
+# Simple Payload Encryption and Decryption
 
-A simple and effective response handler for Express.js applications. It provides utilities for sending standardized success and error responses, along with enhanced error logging.
+A simple package that encrypts and decrypts payloads based on secret keys.
 
 ## Features
 
-- Standardized JSON responses for success and error
-- Custom error handling with stack traces
-- Default parameters for easy usage
+- Encrypts and decrypts payloads based on secret keys, a primary secret key and secondary IV key.
+- Could be used on mobile apps and web apps to encrypt and decrypt api data.
 
 ## Installation
 
 Install the package via npm:
 
 ```js
-npm i api-simple-res
+npm i crypt-payload
 ```
 
-## Success Response
-Send a success response with optional status code, message, and data:
+## Encrypt Data
+Encrypt data using the primary secret key and secondary IV key.:
 
 ```js
-const apiRes = require('api-simple-res');
-let responseData = { id: 1, name: 'Sample' };
-apiRes.success(res, 200, 'Data fetched successfully', responseData);
+const crypt = require('crypt-payload');
+let data = { id: 1, name: 'Sample', age: 20 };
+let encryptedData = crypt.encrypt('32_length_secretKey', '32_length_ivKey', JSON.stringify(data));
 ```
 
-## Error Response
-Send an error response with optional status code and error message:
+## Decrypt Data
+Decrypt data using the primary secret key and secondary IV key.:
 
 ```js
-const apiRes = require('api-simple-res');
-try {
-    //your code
-} catch (err) {
-    apiRes.error(res, err.statusCode, err);
-}
+const crypt = require('crypt-payload');
+let data = crypt.decrypt('32_length_secretKey', '32_length_ivKey', encryptedData);
 ```
