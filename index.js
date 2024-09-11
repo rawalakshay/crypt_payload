@@ -4,6 +4,15 @@ const algorithm = "aes-256-cbc";
 module.exports = {
 
     encrypt: (secretKey, ivKey, data) => {
+        if (secretKey.length < 32) {
+            throw new Error("secretKey must be atleast 32 characters long");
+        }
+        if (ivKey.length < 32) {
+            throw new Error("ivKey must be atleast 32 characters long");
+        }
+        if (typeof data !== 'string') {
+            throw new Error("data must be a string");
+        }
         ivKey = getSHA(ivKey);
         ivKey = ivKey.substring(0, 16);
         let shaKey = getSHA(secretKey);
@@ -12,6 +21,15 @@ module.exports = {
     },
 
     decrypt: (secretKey, ivKey, encryptedData) => {
+        if (secretKey.length < 32) {
+            throw new Error("secretKey must be atleast 32 characters long");
+        }
+        if (ivKey.length < 32) {
+            throw new Error("ivKey must be atleast 32 characters long");
+        }
+        if (typeof encryptedData !== 'string') {
+            throw new Error("data must be a string");
+        }
         ivKey = getSHA(ivKey);
         ivKey = ivKey.substring(0, 16);
         let shaKey = getSHA(secretKey);
